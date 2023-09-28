@@ -1,0 +1,42 @@
+-- This script will look for the coding that levels you up in Dragon Ball Z Final Stand and then force level you up to level 5000.
+
+-- Get the player's local script.
+local script = script.Parent
+
+-- Create a function to find the coding that levels you up.
+function findLevelUpCode()
+  -- Get all of the scripts in the game.
+  local scripts = game:GetService("ScriptService"):GetScripts()
+
+  -- Iterate through all of the scripts and look for the coding that levels you up.
+  for _, script in pairs(scripts) do
+    -- Get the source code of the script.
+    local sourceCode = script:GetSource()
+
+    -- Look for the coding that levels you up.
+    if sourceCode:find("Exp +=") then
+      -- We have found the coding that levels you up.
+      return script
+    end
+  end
+
+  -- We could not find the coding that levels you up.
+  return nil
+end
+
+-- Create a function to force level you up to level 5000.
+function forceLevelUpTo5000()
+  -- Find the coding that levels you up.
+  local levelUpCode = findLevelUpCode()
+
+  -- If we could not find the coding that levels you up, then return.
+  if levelUpCode == nil then
+    return
+  end
+
+  -- Set the player's level to 5000.
+  script.Parent.Player.Level = 5000
+end
+
+-- Force level the player up to level 5000.
+forceLevelUpTo5000()
